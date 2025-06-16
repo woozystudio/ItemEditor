@@ -1,15 +1,14 @@
 {
   "format_version": 2,
   "header": {
-    "description": "pack.description",
-    "name": "pack.name",
+    "description": "A Minecraft: Java Edition plugin ported by WoozyStudio to the Bedrock Edition version for easy and efficient in-game item editing.",
+    "name": "§dItemEditor §6[RP]§r",
     "uuid": "8aba87ea-7d66-47be-a064-31ea8b4b9ffb",
     "version": [1, 0, 0],
     "min_engine_version": [1, 20, 30]
   },
   "modules": [
     {
-      "description": "pack.description",
       "type": "resources",
       "uuid": "e0684766-d0b0-43b6-ab18-1a69ebeab2bf",
       "version": [1, 0, 0]
