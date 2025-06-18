@@ -21,11 +21,11 @@ export const mainItemEditorUI = new ActionFormData()
 
 export function showItemEditorUI(player: Player) {
   mainItemEditorUI.show(player).then((e) => {
-    if (e.selection === 0) return showRenameMenu(player);
+    if (e.selection === 0) return renameItemMenu(player);
   });
 }
 
-export function showRenameMenu(player: Player) {
+export function renameItemMenu(player: Player) {
   const renameUI = new ModalFormData()
     .title("Rename Item")
     .textField({ text: "Enter the new item name:" }, { text: "Super Apple" })
