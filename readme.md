@@ -6,7 +6,7 @@
 		<a href="https://discord.gg/DW6fuPABcN"><img src="https://img.shields.io/discord/1198275487169003583?color=5865F2&logo=discord&logoColor=white" alt="Discord server" /></a>
 	</p>
 	<p>
-		<a href="https://vercel.com/?utm_source=discordjs&utm_campaign=oss"><img src="https://raw.githubusercontent.com/woozystudios/branding/main/powered-by-woozystudio.svg" alt="Vercel" /></a>
+		<a href="https://woozystudio.com"><img src="https://raw.githubusercontent.com/woozystudios/branding/main/powered-by-woozystudio.svg" alt="woozystudio" /></a>
 	</p>
 
 ItemEditor is a Minecraft: Bedrock Edition add-on developed for simple and efficient in-game item management.
