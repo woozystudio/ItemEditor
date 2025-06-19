@@ -10,9 +10,9 @@ export const mainItemEditorUI = new ActionFormData()
       },
     ],
   })
-  .button({ rawtext: [{ text: "\n\n\n\nRename" }] }, "textures/items/blaze_rod");
+  .button({ rawtext: [{ text: "\n\n\n\nRename" }] }, "textures/items/blaze_rod")
+  .button({ rawtext: [{ text: "\n\n\n\nSet Lore" }] }, "textures/items/map_trial_chambers");
 /* .button({ rawtext: [{ text: "\n\n\n\nDelete" }] }, "textures/items/shears")
-  .button({ rawtext: [{ text: "\n\n\n\nSet Lore" }] }, "textures/items/map_trial_chambers")
   .button({ rawtext: [{ text: "\n\n\n\nEnchant" }] }, "textures/items/spire_armor_trim_smithing_template")
   .button({ rawtext: [{ text: "\n\n\n\nAttributes" }] }, "textures/items/prize_pottery_sherd")
   .button({ rawtext: [{ text: "\n\n\n\nSave Item" }] }, "textures/items/ender_eye")
@@ -22,6 +22,7 @@ export const mainItemEditorUI = new ActionFormData()
 export function showItemEditorUI(player: Player) {
   mainItemEditorUI.show(player).then((e) => {
     if (e.selection === 0) return renameItemMenu(player);
+    if (e.selection === 1) return setLoreMenu(player);
   });
 }
 
@@ -40,9 +41,48 @@ export function renameItemMenu(player: Player) {
     const textFieldResponse = e.formValues as (string | number | boolean)[];
     const response = textFieldResponse[0];
 
-    const itemStack = new ItemStack(selectedItem?.typeId as string);
-    itemStack.nameTag = response as string;
+    selectedItem.nameTag = response as string;
 
-    inventory?.container?.getSlot(player.selectedSlotIndex).setItem(itemStack);
+    inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+  });
+}
+
+export function setLoreMenu(player: Player) {
+  const setLoreUI = new ModalFormData()
+    .title("Set Lore")
+    .textField("Add line", "Super rare item!")
+    .textField("Remove line", "Super rare item!")
+    .submitButton("Apply changes");
+
+  setLoreUI.show(player).then((e) => {
+    if (e.canceled) return;
+
+    const inventory = player.getComponent("inventory") as EntityInventoryComponent;
+    const selectedItem = inventory.container?.getItem(player.selectedSlotIndex) as ItemStack;
+
+    const textFieldResponse = e.formValues as (string | number | boolean)[];
+    let responseAddLine = textFieldResponse[0] as string;
+    const responseRemoveLine = textFieldResponse[1] as string;
+
+    const oldLores = selectedItem.getLore();
+    let results = [...oldLores, responseAddLine];
+
+    if (responseAddLine === "") results = [...oldLores];
+
+    console.warn(responseRemoveLine);
+    if (responseRemoveLine === null) return selectedItem.setLore(results);
+
+    const index = results.indexOf(responseRemoveLine);
+
+    if (index !== -1) {
+      results.splice(index, 1);
+    }
+
+    // const lore = results.filter((item) => item !== responseRemoveLine);
+
+    selectedItem.setLore(results);
+    console.warn(results);
+
+    inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
   });
 }
