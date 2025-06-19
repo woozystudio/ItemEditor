@@ -1,2 +1,4 @@
 pack.name=§dItemEditor §6[RP]§r
 pack.description=A Minecraft: Java Edition plugin ported by WoozyStudio to the Bedrock Edition version for easy and efficient in-game item editing.
+
+ui.rename.information=extra info here
