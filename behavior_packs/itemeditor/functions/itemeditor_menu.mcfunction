@@ -1,0 +1,1 @@
+scriptevent itemeditor:open_main_menu
