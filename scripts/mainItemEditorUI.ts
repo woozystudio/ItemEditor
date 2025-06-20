@@ -116,18 +116,18 @@ export function editAttributesMenu(player: Player) {
         if (e.canceled) return;
 
         const textFieldResponse = e.formValues as (string | number | boolean)[];
-        let responseAddLine = textFieldResponse[0] as string;
-        const responseRemoveLine = textFieldResponse[1] as string;
+        let responseAddBlock = textFieldResponse[0] as string;
+        const responseRemoveBlock = textFieldResponse[1] as string;
 
-        const oldLores = selectedItem.getCanPlaceOn();
-        let results = [...oldLores, responseAddLine];
+        const oldBlocks = selectedItem.getCanPlaceOn();
+        let results = [...oldBlocks, responseAddBlock];
 
-        if (responseAddLine === "") results = [...oldLores];
+        if (responseAddBlock === "") results = [...oldBlocks];
 
-        console.warn(responseRemoveLine);
-        if (responseRemoveLine === null) return selectedItem.setCanPlaceOn(results);
+        console.warn(responseRemoveBlock);
+        if (responseRemoveBlock === null) return selectedItem.setCanPlaceOn(results);
 
-        const index = results.indexOf(responseRemoveLine);
+        const index = results.indexOf(responseRemoveBlock);
 
         if (index !== -1) {
           results.splice(index, 1);
