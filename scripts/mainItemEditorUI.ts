@@ -104,6 +104,7 @@ export function editAttributesMenu(player: Player) {
     const inventory = player.getComponent("inventory") as EntityInventoryComponent;
     const selectedItem = inventory.container?.getItem(player.selectedSlotIndex) as ItemStack;
 
+    /* Can Place On */
     if (e.selection === 0) {
       const canPlaceOnMenu = new ModalFormData()
         .title("Can Place On")
@@ -136,6 +137,42 @@ export function editAttributesMenu(player: Player) {
 
         selectedItem.setCanPlaceOn(results);
         console.warn(results);
+
+        inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+      });
+    }
+
+    /* Can Destroy */
+    if (e.selection === 1) {
+      const canDestroyMenu = new ModalFormData()
+        .title("Can Destroy")
+        .textField("Enter the block ID that can be broken.", "grass_block")
+        .textField("Enter the ID of the block you want to remove.", "grass_block")
+        .submitButton("Apply changes");
+
+      canDestroyMenu.show(player).then((e) => {
+        if (e.canceled) return;
+
+        const textFieldResponse = e.formValues as (string | number | boolean)[];
+        let responseAddBlock = textFieldResponse[0] as string;
+        const responseRemoveBlock = textFieldResponse[1] as string;
+
+        const oldBlocks = selectedItem.getCanDestroy();
+        let results = [...oldBlocks, responseAddBlock];
+
+        if (responseAddBlock === "") results = [...oldBlocks];
+
+        if (responseRemoveBlock === null) return selectedItem.setCanDestroy(results);
+
+        const index = results.indexOf(responseRemoveBlock);
+
+        if (index !== -1) {
+          results.splice(index, 1);
+        }
+
+        // const lore = results.filter((item) => item !== responseRemoveLine);
+
+        selectedItem.setCanDestroy(results);
 
         inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
       });
