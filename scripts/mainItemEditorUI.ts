@@ -108,8 +108,8 @@ export function editAttributesMenu(player: Player) {
     if (e.selection === 0) {
       const canPlaceOnMenu = new ModalFormData()
         .title("Can Place On")
-        .textField("Enter the id of the block where it can be placed.", "grass_block")
-        .textField("Enter the id of the blocks you want to remove.", "grass_block")
+        .textField("Enter the ID of the block where it can be placed.", "grass_block")
+        .textField("Enter the ID of the block you want to remove.", "grass_block")
         .submitButton("Apply changes");
 
       canPlaceOnMenu.show(player).then((e) => {
