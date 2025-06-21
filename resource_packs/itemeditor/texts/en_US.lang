@@ -1,7 +1,76 @@
 pack.name=§dItemEditor §6[RP]§r
-pack.description=A Minecraft: Java Edition plugin ported by WoozyStudio to the Bedrock Edition version for easy and efficient in-game item editing.
+pack.description=ItemEditor is a Minecraft: Bedrock Edition add-on developed for simple and efficient in-game item management.
 
-ui.rename.information=extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here 
-ui.rename.information2=extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here 
-ui.rename.information3=extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here 
-ui.rename.information4=extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here extra info here 
+## TRANSLATION RULES
+## 1. Titles must not be translated. They must match those in server_form.json
+
+## Global
+
+ui.itemeditor.global.apply_changes=Apply Changes
+ui.itemeditor.examples.blockid=grass_block
+
+## Main Menu
+
+### Texts
+ui.itemeditor.main_menu.title=Item Editor
+ui.itemeditor.main_menu.body=Make sure you have an item selected in your hotbar in order to interact with it. All explanations for each function can be found in the manual. Run §e/function manual§r to access it.
+
+## Actions
+ui.itemeditor.main_menu.rename=\n\n\n\nRename
+ui.itemeditor.main_menu.setlore=\n\n\n\nSet Description
+ui.itemeditor.main_menu.attributes=\n\n\n\nAttributes
+ui.itemeditor.main_menu.quantity=\n\n\n\nQuantity
+
+## Rename Action
+
+ui.itemeditor.rename.title=Rename Item
+ui.itemeditor.rename.textfield.label=Enter the new name for the item:
+ui.itemeditor.rename.textfield.placeholder=Superpowered Apple
+
+## Set Lore Action
+
+ui.itemeditor.setlore.title=Set Lore
+ui.itemeditor.setlore.addlinetextfield.label=Add Line
+ui.itemeditor.setlore.removelinetextfield.label=Remove Line
+ui.itemeditor.setlore.textfield.placeholder=Rare Item
+
+## Attributes Action
+
+ui.itemeditor.attributes.title=Attributes
+ui.itemeditor.attributes.body=Select an attribute to apply to the item.
+
+ui.itemeditor.attributes.canplaceon=\n\n\n\nCan\nPlace On
+ui.itemeditor.attributes.candestroy=\n\n\n\nCan Destroy
+ui.itemeditor.attributes.lockininventory=\n\n\n\nLock in Inventory
+ui.itemeditor.attributes.keepondeath=\n\n\n\nKeep On Death
+
+### Can Place On - Attribute
+
+ui.itemeditor.attributes.canplaceon.title=Can Place On
+ui.itemeditor.attributes.canplaceon.addblocktextfield.label=Enter the block ID on which it can be placed.
+ui.itemeditor.attributes.canplaceon.removeblocktextfield.label=Enter the block ID you wish to remove.
+
+### Can Destroy - Attribute
+
+ui.itemeditor.attributes.candestroy.title=Can Destroy
+ui.itemeditor.attributes.candestroy.addblocktextfield.label=Enter the block ID it can destroy.
+ui.itemeditor.attributes.candestroy.removeblocktextfield.label=Enter the block ID you wish to remove.
+
+### Lock Mode - Attribute
+
+ui.itemeditor.attributes.lockmode.title=Lock Mode
+ui.itemeditor.attributes.lockmode.dropdown.label=Select the item's lock type:
+ui.itemeditor.attributes.lockmode.dropdown.options.none=Remove Lock
+ui.itemeditor.attributes.lockmode.dropdown.options.inventory=Inventory Lock
+ui.itemeditor.attributes.lockmode.dropdown.options.slot=Slot Lock
+
+### Keep On Death - Attribute
+
+ui.itemeditor.attributes.keepondeath.disabled=§cThe Keep On Death attribute has been successfully disabled for this item.
+ui.itemeditor.attributes.keepondeath.enabled=§aThe Keep On Death attribute has been successfully enabled for this item.
+
+## Quantity Action
+
+ui.itemeditor.quantity.title=Quantity
+ui.itemeditor.quantity.textfield.label=Enter the number of items:
+ui.itemeditor.quantity.textfield.placeholder=1 min. 256 max.

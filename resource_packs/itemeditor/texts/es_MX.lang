@@ -1,0 +1,77 @@
+pack.name=§dItemEditor §6[RP]§r
+pack.description=ItemEditor es un add-on de Minecraft: Bedrock Edition desarrollado para la gestión simple y eficiente de items en el juego.
+
+## REGLAS PARA LAS TRADUCCIONES
+## 1. Los títulos no pueden ser traducidos. Deben ser idénticos a los de server_form.json
+
+## Global
+
+ui.itemeditor.global.apply_changes=Aplicar cambios
+ui.itemeditor.examples.blockid=grass_block
+
+## Main Menu
+
+### Texts
+ui.itemeditor.main_menu.title=Item Editor
+ui.itemeditor.main_menu.body=Asegúrate de tener un ítem seleccionado en tu barra rápida para poder interactuar con él. Todas las explicaciones de cada función se encuentran en el manual. Ejecuta §e/función manual§r para obtener el manual.
+
+## Actions
+ui.itemeditor.main_menu.rename=\n\n\n\nRenombrar
+ui.itemeditor.main_menu.setlore=\n\n\n\nAsignar descripción
+ui.itemeditor.main_menu.attributes=\n\n\n\nAtributos
+ui.itemeditor.main_menu.quantity=\n\n\n\nCantidad
+
+
+## Rename Action
+
+ui.itemeditor.rename.title=Rename Item
+ui.itemeditor.rename.textfield.label=Ingresa el nuevo nombre del ítem:
+ui.itemeditor.rename.textfield.placeholder=Manzana Superpoderosa
+
+## Set Lore Action
+
+ui.itemeditor.setlore.title=Set Lore
+ui.itemeditor.setlore.addlinetextfield.label=Añadir línea
+ui.itemeditor.setlore.removelinetextfield.label=Eliminar línea
+ui.itemeditor.setlore.textfield.placeholder=Ítem raro
+
+## Attributes Action
+
+ui.itemeditor.attributes.title=Attributes
+ui.itemeditor.attributes.body=Selecciona un atributo para aplicarlo al ítem.
+
+ui.itemeditor.attributes.canplaceon=\n\n\n\nCan\nPlace On
+ui.itemeditor.attributes.candestroy=\n\n\n\nCan Destroy
+ui.itemeditor.attributes.lockininventory=\n\n\n\nLock in Inventory
+ui.itemeditor.attributes.keepondeath=\n\n\n\nKeep On Death
+
+### Can Place On - Attribute
+
+ui.itemeditor.attributes.canplaceon.title=Can Place On
+ui.itemeditor.attributes.canplaceon.addblocktextfield.label=Introduce el ID del bloque donde se puede colocar.
+ui.itemeditor.attributes.canplaceon.removeblocktextfield.label=Introduce el ID del bloque que deseas eliminar.
+
+### Can Destroy - Attribute
+
+ui.itemeditor.attributes.candestroy.title=Can Destroy
+ui.itemeditor.attributes.candestroy.addblocktextfield.label=Introduce el ID del bloque que puede romper.
+ui.itemeditor.attributes.candestroy.removeblocktextfield.label=Introduce el ID del bloque que deseas eliminar.
+
+### Lock Mode - Attribute
+
+ui.itemeditor.attributes.lockmode.title=Lock Mode
+ui.itemeditor.attributes.lockmode.dropdown.label=Selecciona el tipo de bloqueo del ítem:
+ui.itemeditor.attributes.lockmode.dropdown.options.none=Quitar bloqueo
+ui.itemeditor.attributes.lockmode.dropdown.options.inventory=Bloqueo de inventario
+ui.itemeditor.attributes.lockmode.dropdown.options.slot=Bloqueo de espacio
+
+### Keep On Death - Attribute
+
+ui.itemeditor.attributes.keepondeath.disabled=§cEl atributo Keep On Death se ha desactivado correctamente para este objeto.
+ui.itemeditor.attributes.keepondeath.enabled=§aEl atributo Keep On Death se ha activado correctamente para este objeto.
+
+## Quantity Action
+
+ui.itemeditor.quantity.title=Quantity
+ui.itemeditor.quantity.textfield.label=Ingresa la cantidad de ítems:
+ui.itemeditor.quantity.textfield.placeholder=1 mín. 256 máx.
