@@ -1,4 +1,4 @@
-import { EntityInventoryComponent, ItemStack, Player } from "@minecraft/server";
+import { EntityInventoryComponent, ItemLockMode, ItemStack, Player } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { MinecraftItemTypes } from "@minecraft/vanilla-data";
 
@@ -133,8 +133,6 @@ export function editAttributesMenu(player: Player) {
           results.splice(index, 1);
         }
 
-        // const lore = results.filter((item) => item !== responseRemoveLine);
-
         selectedItem.setCanPlaceOn(results);
         console.warn(results);
 
@@ -170,12 +168,62 @@ export function editAttributesMenu(player: Player) {
           results.splice(index, 1);
         }
 
-        // const lore = results.filter((item) => item !== responseRemoveLine);
-
         selectedItem.setCanDestroy(results);
 
         inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
       });
+    }
+
+    /* Lock in Inventory */
+    if (e.selection === 2) {
+      const lockModeMenu = new ModalFormData()
+        .title("Lock Mode")
+        .dropdown("Select the type of lock for the item.", ["Remove Lock", "Inventory Lock", "Slot Lock"])
+        .submitButton("Apply changes");
+
+      lockModeMenu.show(player).then((e) => {
+        if (e.canceled) return;
+
+        const dropdownResponse = e.formValues as (string | number | boolean)[];
+        let dropdown = dropdownResponse[0] as number;
+
+        switch (dropdown) {
+          case 0:
+            selectedItem.lockMode = ItemLockMode.none;
+            break;
+
+          case 1:
+            selectedItem.lockMode = ItemLockMode.inventory;
+            break;
+
+          case 2:
+            selectedItem.lockMode = ItemLockMode.slot;
+            break;
+        }
+
+        inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+      });
+    }
+
+    /* Keep On Death */
+    if (e.selection === 3) {
+      switch (selectedItem.keepOnDeath) {
+        case true:
+          selectedItem.keepOnDeath = false;
+          inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+          player.runCommand(
+            `tellraw @s {"rawtext":[{"text":"§cThe Keep On Death attribute was correctly disabled for this item."}]}`
+          );
+          break;
+
+        case false:
+          selectedItem.keepOnDeath = true;
+          inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+          player.runCommand(
+            `tellraw @s {"rawtext":[{"text":"§aThe Keep On Death attribute was correctly enabled for this item."}]}`
+          );
+          break;
+      }
     }
   });
 }
