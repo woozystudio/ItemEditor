@@ -17,7 +17,7 @@ ui.itemeditor.main_menu.body=Make sure you have an item selected in your hotbar 
 
 ## Actions
 ui.itemeditor.main_menu.rename=\n\n\n\nRename
-ui.itemeditor.main_menu.setlore=\n\n\n\nSet Description
+ui.itemeditor.main_menu.setlore=\n\n\n\nAdd Lore
 ui.itemeditor.main_menu.attributes=\n\n\n\nAttributes
 ui.itemeditor.main_menu.quantity=\n\n\n\nQuantity
 

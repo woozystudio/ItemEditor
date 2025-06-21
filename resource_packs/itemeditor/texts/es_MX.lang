@@ -17,7 +17,7 @@ ui.itemeditor.main_menu.body=Asegúrate de tener un ítem seleccionado en tu bar
 
 ## Actions
 ui.itemeditor.main_menu.rename=\n\n\n\nRenombrar
-ui.itemeditor.main_menu.setlore=\n\n\n\nAsignar descripción
+ui.itemeditor.main_menu.setlore=\n\n\n\nAsignar Lore
 ui.itemeditor.main_menu.attributes=\n\n\n\nAtributos
 ui.itemeditor.main_menu.quantity=\n\n\n\nCantidad
 
