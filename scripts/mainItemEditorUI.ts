@@ -13,11 +13,11 @@ export const mainItemEditorUI = new ActionFormData()
   })
   .button({ rawtext: [{ text: "\n\n\n\nRename" }] }, "textures/items/blaze_rod")
   .button({ rawtext: [{ text: "\n\n\n\nSet Lore" }] }, "textures/items/map_trial_chambers")
-  .button({ rawtext: [{ text: "\n\n\n\nAttributes" }] }, "textures/items/prize_pottery_sherd");
+  .button({ rawtext: [{ text: "\n\n\n\nAttributes" }] }, "textures/items/prize_pottery_sherd")
+  .button({ rawtext: [{ text: "\n\n\n\nAmount" }] }, "textures/items/bundle_lime");
 /* .button({ rawtext: [{ text: "\n\n\n\nDelete" }] }, "textures/items/shears")
   .button({ rawtext: [{ text: "\n\n\n\nEnchant" }] }, "textures/items/spire_armor_trim_smithing_template")
   .button({ rawtext: [{ text: "\n\n\n\nSave Item" }] }, "textures/items/ender_eye")
-  .button({ rawtext: [{ text: "\n\n\n\nAmount" }] }, "textures/items/bundle_lime")
   .button({ rawtext: [{ text: "\n\n\n\nRepair" }] }, "textures/items/redstone_dust"); */
 
 export function showItemEditorUI(player: Player) {
@@ -25,6 +25,7 @@ export function showItemEditorUI(player: Player) {
     if (e.selection === 0) return renameItemMenu(player);
     if (e.selection === 1) return setLoreMenu(player);
     if (e.selection === 2) return editAttributesMenu(player);
+    if (e.selection === 3) return amoutMenu(player);
   });
 }
 
@@ -223,5 +224,31 @@ export function editAttributesMenu(player: Player) {
           break;
       }
     }
+  });
+}
+
+export function amoutMenu(player: Player) {
+  const amoutUI = new ModalFormData()
+    .title("Amout")
+    .textField({ text: "Enter the number of items you want:" }, { text: "1 min. 256 máx." })
+    .submitButton({ text: "Submit" });
+
+  amoutUI.show(player).then((e) => {
+    if (e.canceled) return;
+
+    const inventory = player.getComponent("inventory") as EntityInventoryComponent;
+    const selectedItem = inventory.container?.getItem(player.selectedSlotIndex) as ItemStack;
+
+    const textFieldResponse = e.formValues as (string | number | boolean)[];
+    const response = textFieldResponse[0] as number;
+    const amount = Number(response);
+
+    if (amount === 0 || amount > 256) {
+      amoutUI.show(player);
+    }
+
+    selectedItem.amount = amount;
+
+    inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
   });
 }
