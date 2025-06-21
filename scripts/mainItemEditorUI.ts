@@ -124,7 +124,6 @@ export function editAttributesMenu(player: Player) {
 
         if (responseAddBlock === "") results = [...oldBlocks];
 
-        console.warn(responseRemoveBlock);
         if (responseRemoveBlock === null) return selectedItem.setCanPlaceOn(results);
 
         const index = results.indexOf(responseRemoveBlock);
@@ -134,7 +133,6 @@ export function editAttributesMenu(player: Player) {
         }
 
         selectedItem.setCanPlaceOn(results);
-        console.warn(results);
 
         inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
       });
