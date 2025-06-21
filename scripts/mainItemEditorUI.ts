@@ -3,18 +3,12 @@ import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { MinecraftItemTypes } from "@minecraft/vanilla-data";
 
 export const mainItemEditorUI = new ActionFormData()
-  .title("Item Editor")
-  .body({
-    rawtext: [
-      {
-        text: "Make sure you have an object selected in your hotbar to be able to interact with it. All explanations of each function are in the manual, run §e/function manual§r to get the manual.",
-      },
-    ],
-  })
-  .button({ rawtext: [{ text: "\n\n\n\nRename" }] }, "textures/items/blaze_rod")
-  .button({ rawtext: [{ text: "\n\n\n\nSet Lore" }] }, "textures/items/map_trial_chambers")
-  .button({ rawtext: [{ text: "\n\n\n\nAttributes" }] }, "textures/items/prize_pottery_sherd")
-  .button({ rawtext: [{ text: "\n\n\n\nAmount" }] }, "textures/items/bundle_lime");
+  .title({ translate: "ui.itemeditor.main_menu.title" })
+  .body({ translate: "ui.itemeditor.main_menu.body" })
+  .button({ translate: "ui.itemeditor.main_menu.rename" }, "textures/items/blaze_rod")
+  .button({ translate: "ui.itemeditor.main_menu.setlore" }, "textures/items/map_trial_chambers")
+  .button({ translate: "ui.itemeditor.main_menu.attributes" }, "textures/items/prize_pottery_sherd")
+  .button({ translate: "ui.itemeditor.main_menu.quantity" }, "textures/items/bundle_lime");
 /* .button({ rawtext: [{ text: "\n\n\n\nDelete" }] }, "textures/items/shears")
   .button({ rawtext: [{ text: "\n\n\n\nEnchant" }] }, "textures/items/spire_armor_trim_smithing_template")
   .button({ rawtext: [{ text: "\n\n\n\nSave Item" }] }, "textures/items/ender_eye")
@@ -25,15 +19,18 @@ export function showItemEditorUI(player: Player) {
     if (e.selection === 0) return renameItemMenu(player);
     if (e.selection === 1) return setLoreMenu(player);
     if (e.selection === 2) return editAttributesMenu(player);
-    if (e.selection === 3) return amoutMenu(player);
+    if (e.selection === 3) return quantityMenu(player);
   });
 }
 
 export function renameItemMenu(player: Player) {
   const renameUI = new ModalFormData()
-    .title("Rename Item")
-    .textField({ text: "Enter the new item name:" }, { text: "Super Apple" })
-    .submitButton({ text: "Rename!" });
+    .title({ translate: "ui.itemeditor.rename.title" })
+    .textField(
+      { translate: "ui.itemeditor.rename.textfield.label" },
+      { translate: "ui.itemeditor.rename.textfield.placeholder" }
+    )
+    .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
   renameUI.show(player).then((e) => {
     if (e.canceled) return;
@@ -52,10 +49,16 @@ export function renameItemMenu(player: Player) {
 
 export function setLoreMenu(player: Player) {
   const setLoreUI = new ModalFormData()
-    .title("Set Lore")
-    .textField("Add line", "Super rare item!")
-    .textField("Remove line", "Super rare item!")
-    .submitButton("Apply changes");
+    .title({ translate: "ui.itemeditor.setlore.title" })
+    .textField(
+      { translate: "ui.itemeditor.setlore.addlinetextfield.label" },
+      { translate: "ui.itemeditor.setlore.textfield.placeholder" }
+    )
+    .textField(
+      { translate: "ui.itemeditor.setlore.removelinetextfield.label" },
+      { translate: "ui.itemeditor.setlore.textfield.placeholder" }
+    )
+    .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
   setLoreUI.show(player).then((e) => {
     if (e.canceled) return;
@@ -92,12 +95,12 @@ export function setLoreMenu(player: Player) {
 
 export function editAttributesMenu(player: Player) {
   const attributesMenu = new ActionFormData()
-    .title("Attributes")
-    .body("Select the attributes")
-    .button({ rawtext: [{ text: "\n\n\n\nCan\nPlace On" }] }, "textures/items/flow_pottery_sherd")
-    .button({ rawtext: [{ text: "\n\n\n\nCan Destroy" }] }, "textures/items/miner_pottery_sherd")
-    .button({ rawtext: [{ text: "\n\n\n\nLock in Inventory" }] }, "textures/items/prize_pottery_sherd")
-    .button({ rawtext: [{ text: "\n\n\n\nKeep on Death" }] }, "textures/items/heartbreak_pottery_sherd");
+    .title({ translate: "ui.itemeditor.attributes.title" })
+    .body({ translate: "ui.itemeditor.attributes.body" })
+    .button({ translate: "ui.itemeditor.attributes.canplaceon" }, "textures/items/flow_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.candestroy" }, "textures/items/miner_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.lockininventory" }, "textures/items/prize_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.keepondeath" }, "textures/items/heartbreak_pottery_sherd");
 
   attributesMenu.show(player).then((e) => {
     if (e.canceled) return;
@@ -108,10 +111,16 @@ export function editAttributesMenu(player: Player) {
     /* Can Place On */
     if (e.selection === 0) {
       const canPlaceOnMenu = new ModalFormData()
-        .title("Can Place On")
-        .textField("Enter the ID of the block where it can be placed.", "grass_block")
-        .textField("Enter the ID of the block you want to remove.", "grass_block")
-        .submitButton("Apply changes");
+        .title({ translate: "ui.itemeditor.attributes.canplaceon.title" })
+        .textField(
+          { translate: "ui.itemeditor.attributes.canplaceon.addblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .textField(
+          { translate: "ui.itemeditor.attributes.canplaceon.removeblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
       canPlaceOnMenu.show(player).then((e) => {
         if (e.canceled) return;
@@ -142,10 +151,16 @@ export function editAttributesMenu(player: Player) {
     /* Can Destroy */
     if (e.selection === 1) {
       const canDestroyMenu = new ModalFormData()
-        .title("Can Destroy")
-        .textField("Enter the block ID that can be broken.", "grass_block")
-        .textField("Enter the ID of the block you want to remove.", "grass_block")
-        .submitButton("Apply changes");
+        .title({ translate: "ui.itemeditor.attributes.candestroy.title" })
+        .textField(
+          { translate: "ui.itemeditor.attributes.candestroy.addblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .textField(
+          { translate: "ui.itemeditor.attributes.candestroy.removeblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
       canDestroyMenu.show(player).then((e) => {
         if (e.canceled) return;
@@ -176,9 +191,13 @@ export function editAttributesMenu(player: Player) {
     /* Lock in Inventory */
     if (e.selection === 2) {
       const lockModeMenu = new ModalFormData()
-        .title("Lock Mode")
-        .dropdown("Select the type of lock for the item.", ["Remove Lock", "Inventory Lock", "Slot Lock"])
-        .submitButton("Apply changes");
+        .title({ translate: "ui.itemeditor.attributes.lockmode.title" })
+        .dropdown({ translate: "ui.itemeditor.attributes.lockmode.dropdown.label" }, [
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.none" },
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.inventory" },
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.slot" },
+        ])
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
       lockModeMenu.show(player).then((e) => {
         if (e.canceled) return;
@@ -210,30 +229,29 @@ export function editAttributesMenu(player: Player) {
         case true:
           selectedItem.keepOnDeath = false;
           inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
-          player.runCommand(
-            `tellraw @s {"rawtext":[{"text":"§cThe Keep On Death attribute was correctly disabled for this item."}]}`
-          );
+          player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.attributes.keepondeath.disabled"}]}`);
           break;
 
         case false:
           selectedItem.keepOnDeath = true;
           inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
-          player.runCommand(
-            `tellraw @s {"rawtext":[{"text":"§aThe Keep On Death attribute was correctly enabled for this item."}]}`
-          );
+          player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.attributes.keepondeath.enabled"}]}`);
           break;
       }
     }
   });
 }
 
-export function amoutMenu(player: Player) {
-  const amoutUI = new ModalFormData()
-    .title("Amout")
-    .textField({ text: "Enter the number of items you want:" }, { text: "1 min. 256 máx." })
-    .submitButton({ text: "Submit" });
+export function quantityMenu(player: Player) {
+  const quantityUI = new ModalFormData()
+    .title({ translate: "ui.itemeditor.quantity.title" })
+    .textField(
+      { translate: "ui.itemeditor.quantity.textfield.label" },
+      { translate: "ui.itemeditor.quantity.textfield.placeholder" }
+    )
+    .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
 
-  amoutUI.show(player).then((e) => {
+  quantityUI.show(player).then((e) => {
     if (e.canceled) return;
 
     const inventory = player.getComponent("inventory") as EntityInventoryComponent;
@@ -241,13 +259,13 @@ export function amoutMenu(player: Player) {
 
     const textFieldResponse = e.formValues as (string | number | boolean)[];
     const response = textFieldResponse[0] as number;
-    const amount = Number(response);
+    const quantity = Number(response);
 
-    if (amount === 0 || amount > 256) {
-      amoutUI.show(player);
+    if (quantity === 0 || quantity > 256) {
+      quantityUI.show(player);
     }
 
-    selectedItem.amount = amount;
+    selectedItem.amount = quantity;
 
     inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
   });
