@@ -97,7 +97,7 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On') and not (#title_text = 'Can Destroy') and not (#title_text = 'Lock Mode'))",
+              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On') and not (#title_text = 'Can Destroy') and not (#title_text = 'Lock Mode') and not (#title_text = 'Amout'))",
               "target_property_name": "#visible"
             }
           ]
@@ -111,7 +111,7 @@
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.set_lore_extension",
+          "$child_control": "server_form.setlore_custom_form",
           "layer": 2,
           "bindings": [
             {
@@ -133,7 +133,7 @@
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.can_place_on_extension",
+          "$child_control": "server_form.canplaceon_custom_form",
           "layer": 2,
           "bindings": [
             {
@@ -155,7 +155,7 @@
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.can_destroy_extension",
+          "$child_control": "server_form.candestroy_custom_form",
           "layer": 2,
           "bindings": [
             {
@@ -177,7 +177,7 @@
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.lock_mode_extension",
+          "$child_control": "server_form.lockmode_custom_form",
           "layer": 2,
           "bindings": [
             {
@@ -191,15 +191,18 @@
           ]
         }
       },
+
+      /* MINI PANEL FORMS */
+
       {
-        "large_custom_form@common_dialogs.main_panel_no_buttons": {
+        "rename_form@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 15px", 10],
           "$title_max_size": ["100% - 15px", 10],
           "size": [240, 120],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.custom_form_panel",
+          "$child_control": "server_form.custom_form_scrolling_content",
           "layer": 2,
           "bindings": [
             {
@@ -208,6 +211,28 @@
             {
               "binding_type": "view",
               "source_property_name": "(#title_text = 'Rename Item')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "amout_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": ["100% - 15px", 10],
+          "$title_max_size": ["100% - 15px", 10],
+          "size": [240, 120],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.custom_form_scrolling_content",
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text = 'Amout')",
               "target_property_name": "#visible"
             }
           ]
@@ -756,7 +781,7 @@
     "anchor_from": "top_left",
     "$show_background": false,
     "size": ["100%", "100%"],
-    "$scrolling_content": "server_form.body_custom_scrolling_content",
+    "$scrolling_content": "server_form.set_lore_extension",
     "$scroll_size": [5, "100% - 4px"],
     "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
     "$scrolling_pane_offset": [2, 0],
@@ -853,38 +878,33 @@
     ]
   },
 
-  /* START OF EXTENSIONS */
+  /* SET LORE - FORM */
 
-  /* EXTENSION FOR SET LORE - body_custom_scrolling_content */
+  "setlore_custom_form@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.setlore_scrolling_content",
+    "$scroll_size": [5, "100% - 4px"],
+    "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+    "$scrolling_pane_offset": [2, 0],
+    "$scroll_bar_right_padding_size": [0, 0]
+  },
 
-  "set_lore_extension@server_form.body_custom_scrolling_content": {
+  "setlore_scrolling_content": {
     "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "offset": [2, 0],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+
     "controls": [
-      {
-        "label_offset_panel": {
-          "type": "panel",
-          "size": ["100%", "100%c"],
-          "anchor_from": "top_left",
-          "anchor_to": "top_left",
-          "controls": [
-            {
-              "main_label": {
-                "type": "label",
-                "offset": [2, 2],
-                "color": "$main_header_text_color",
-                "size": ["100%", "default"],
-                "anchor_from": "top_left",
-                "anchor_to": "top_left",
-                "text": "ui.rename.information"
-              }
-            }
-          ]
-        }
-      },
       {
         "padding": {
           "type": "panel",
-          "size": ["100%", 15]
+          "size": ["100%", 5]
         }
       },
       {
@@ -907,14 +927,59 @@
             }
           ]
         }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": ["100%", 15]
+        }
+      },
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": ["100%", "100%c"],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [2, 2],
+                "color": "$main_header_text_color",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "ui.rename.information"
+              }
+            }
+          ]
+        }
       }
     ]
   },
 
-  /* EXTENSION FOR CAN PLACE ON - body_custom_scrolling_content */
+  /* CAN PLACE ON - FORM */
 
-  "can_place_on_extension@server_form.body_custom_scrolling_content": {
+  "canplaceon_custom_form@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.canplaceon_scrolling_content",
+    "$scroll_size": [5, "100% - 4px"],
+    "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+    "$scrolling_pane_offset": [2, 0],
+    "$scroll_bar_right_padding_size": [0, 0]
+  },
+
+  "canplaceon_scrolling_content": {
     "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "offset": [2, 0],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+
     "controls": [
       {
         "label_offset_panel": {
@@ -967,10 +1032,27 @@
     ]
   },
 
-  /* EXTENSION FOR CAN DESTROY - body_custom_scrolling_content */
+  /* CAN DESTROY - FORM */
 
-  "can_destroy_extension@server_form.body_custom_scrolling_content": {
+  "candestroy_custom_form@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.candestroy_scrolling_content",
+    "$scroll_size": [5, "100% - 4px"],
+    "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+    "$scrolling_pane_offset": [2, 0],
+    "$scroll_bar_right_padding_size": [0, 0]
+  },
+
+  "candestroy_scrolling_content": {
     "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "offset": [2, 0],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
     "controls": [
       {
         "label_offset_panel": {
@@ -1023,10 +1105,27 @@
     ]
   },
 
-  /* EXTENSION FOR LOCK MODE - body_custom_scrolling_content */
+  /* LOCK MODE - FORM */
 
-  "lock_mode_extension@server_form.body_custom_scrolling_content": {
+  "lockmode_custom_form@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": ["100%", "100%"],
+    "$scrolling_content": "server_form.lockmode_scrolling_content",
+    "$scroll_size": [5, "100% - 4px"],
+    "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+    "$scrolling_pane_offset": [2, 0],
+    "$scroll_bar_right_padding_size": [0, 0]
+  },
+
+  "lockmode_scrolling_content": {
     "type": "stack_panel",
+    "size": ["100% - 4px", "100%c"],
+    "offset": [2, 0],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
     "controls": [
       {
         "label_offset_panel": {
@@ -1079,7 +1178,7 @@
     ]
   },
 
-  /* END OF EXTENSIONS */
+  /* GENERAL CUSTOM FORM SCROLLING CONTENT */
 
   "custom_form_scrolling_content": {
     "type": "stack_panel",
