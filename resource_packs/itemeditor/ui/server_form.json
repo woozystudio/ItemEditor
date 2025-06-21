@@ -97,7 +97,7 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On') and not (#title_text = 'Can Destroy') and not (#title_text = 'Lock Mode') and not (#title_text = 'Amout'))",
+              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On') and not (#title_text = 'Can Destroy') and not (#title_text = 'Lock Mode') and not (#title_text = 'Quantity'))",
               "target_property_name": "#visible"
             }
           ]
@@ -217,7 +217,7 @@
         }
       },
       {
-        "amout_form@common_dialogs.main_panel_no_buttons": {
+        "quantity_form@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 15px", 10],
           "$title_max_size": ["100% - 15px", 10],
@@ -232,7 +232,7 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "(#title_text = 'Amout')",
+              "source_property_name": "(#title_text = 'Quantity')",
               "target_property_name": "#visible"
             }
           ]
