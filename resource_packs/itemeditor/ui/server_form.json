@@ -97,21 +97,21 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On'))",
+              "source_property_name": "(not (#title_text = 'Rename Item') and not (#title_text = 'Set Lore') and not (#title_text = 'Can Place On') and not (#title_text = 'Can Destroy') and not (#title_text = 'Lock Mode'))",
               "target_property_name": "#visible"
             }
           ]
         }
       },
       {
-        "large_body_custom_form@common_dialogs.main_panel_no_buttons": {
+        "set_lore_form@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 15px", 10],
           "$title_max_size": ["100% - 15px", 10],
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.body_custom_form_panel",
+          "$child_control": "server_form.set_lore_extension",
           "layer": 2,
           "bindings": [
             {
@@ -126,14 +126,14 @@
         }
       },
       {
-        "large_body2_custom_form@common_dialogs.main_panel_no_buttons": {
+        "can_place_on_form@common_dialogs.main_panel_no_buttons": {
           "$title_panel": "common_dialogs.standard_title_label",
           "$title_size": ["100% - 15px", 10],
           "$title_max_size": ["100% - 15px", 10],
           "size": [240, 225],
           "$text_name": "#title_text",
           "$title_text_binding_type": "none",
-          "$child_control": "server_form.body_custom_form_panel",
+          "$child_control": "server_form.can_place_on_extension",
           "layer": 2,
           "bindings": [
             {
@@ -142,6 +142,50 @@
             {
               "binding_type": "view",
               "source_property_name": "(#title_text = 'Can Place On')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "can_destroy_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": ["100% - 15px", 10],
+          "$title_max_size": ["100% - 15px", 10],
+          "size": [240, 225],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.can_destroy_extension",
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text = 'Can Destroy')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "lock_mode_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": ["100% - 15px", 10],
+          "$title_max_size": ["100% - 15px", 10],
+          "size": [240, 225],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.lock_mode_extension",
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text = 'Lock Mode')",
               "target_property_name": "#visible"
             }
           ]
@@ -773,6 +817,64 @@
                 "size": ["100%", "default"],
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
+                "text": "#title_text"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": ["100%", 15]
+        }
+      },
+      {
+        "generated_form@server_form.generated_contents": {}
+      },
+      {
+        "submit_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.submit_custom_form",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": ["100%", 32],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
+
+          "bindings": [
+            {
+              "binding_name": "#submit_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  /* START OF EXTENSIONS */
+
+  /* EXTENSION FOR SET LORE - body_custom_scrolling_content */
+
+  "set_lore_extension@server_form.body_custom_scrolling_content": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": ["100%", "100%c"],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [2, 2],
+                "color": "$main_header_text_color",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
                 "text": "ui.rename.information"
               }
             }
@@ -808,6 +910,176 @@
       }
     ]
   },
+
+  /* EXTENSION FOR CAN PLACE ON - body_custom_scrolling_content */
+
+  "can_place_on_extension@server_form.body_custom_scrolling_content": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": ["100%", "100%c"],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [2, 2],
+                "color": "$main_header_text_color",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "ui.rename.information2"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": ["100%", 15]
+        }
+      },
+      {
+        "generated_form@server_form.generated_contents": {}
+      },
+      {
+        "submit_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.submit_custom_form",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": ["100%", 32],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
+
+          "bindings": [
+            {
+              "binding_name": "#submit_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  /* EXTENSION FOR CAN DESTROY - body_custom_scrolling_content */
+
+  "can_destroy_extension@server_form.body_custom_scrolling_content": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": ["100%", "100%c"],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [2, 2],
+                "color": "$main_header_text_color",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "ui.rename.information3"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": ["100%", 15]
+        }
+      },
+      {
+        "generated_form@server_form.generated_contents": {}
+      },
+      {
+        "submit_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.submit_custom_form",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": ["100%", 32],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
+
+          "bindings": [
+            {
+              "binding_name": "#submit_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  /* EXTENSION FOR LOCK MODE - body_custom_scrolling_content */
+
+  "lock_mode_extension@server_form.body_custom_scrolling_content": {
+    "type": "stack_panel",
+    "controls": [
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": ["100%", "100%c"],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [2, 2],
+                "color": "$main_header_text_color",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "ui.rename.information4"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": ["100%", 15]
+        }
+      },
+      {
+        "generated_form@server_form.generated_contents": {}
+      },
+      {
+        "submit_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.submit_custom_form",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": ["100%", 32],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
+
+          "bindings": [
+            {
+              "binding_name": "#submit_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+
+  /* END OF EXTENSIONS */
 
   "custom_form_scrolling_content": {
     "type": "stack_panel",
