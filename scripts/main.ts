@@ -1,5 +1,5 @@
 import { Player, system, world } from "@minecraft/server";
-import { showItemEditorUI } from "./mainItemEditorUI";
+import { showItemEditorUI } from "./ItemEditorUI";
 
 system.afterEvents.scriptEventReceive.subscribe((event) => {
   const { id, sourceEntity } = event;
