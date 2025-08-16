@@ -20,6 +20,7 @@ ui.itemeditor.main_menu.rename=\n\n\n\nRename
 ui.itemeditor.main_menu.setlore=\n\n\n\nAdd Lore
 ui.itemeditor.main_menu.attributes=\n\n\n\nAttributes
 ui.itemeditor.main_menu.quantity=\n\n\n\nQuantity
+ui.itemeditor.main_menu.repair=\n\n\n\nRepair
 
 ## Rename Action
 
@@ -74,3 +75,9 @@ ui.itemeditor.attributes.keepondeath.enabled=§aThe Keep On Death attribute has 
 ui.itemeditor.quantity.title=Quantity
 ui.itemeditor.quantity.textfield.label=Enter the number of items:
 ui.itemeditor.quantity.textfield.placeholder=1 min. 256 max.
+
+## Repair Action
+
+ui.itemeditor.repair.title=Repair
+ui.itemeditor.repair.cant_repair=§l§cERROR§r§c This item cannot be repaired!§r
+ui.itemeditor.repair.already_repaired=§l§cERROR§r§c This item is not damaged!§r
