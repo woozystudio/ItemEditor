@@ -1,25 +1,33 @@
-import { EntityInventoryComponent, ItemLockMode, ItemStack, Player } from "@minecraft/server";
+import {
+  EntityInventoryComponent,
+  ItemComponentTypes,
+  ItemDurabilityComponent,
+  ItemLockMode,
+  ItemStack,
+  Player,
+} from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { MinecraftItemTypes } from "@minecraft/vanilla-data";
-
-export const mainItemEditorUI = new ActionFormData()
-  .title({ translate: "ui.itemeditor.main_menu.title" })
-  .body({ translate: "ui.itemeditor.main_menu.body" })
-  .button({ translate: "ui.itemeditor.main_menu.rename" }, "textures/items/blaze_rod")
-  .button({ translate: "ui.itemeditor.main_menu.setlore" }, "textures/items/map_trial_chambers")
-  .button({ translate: "ui.itemeditor.main_menu.attributes" }, "textures/items/prize_pottery_sherd")
-  .button({ translate: "ui.itemeditor.main_menu.quantity" }, "textures/items/bundle_lime");
-/* .button({ rawtext: [{ text: "\n\n\n\nDelete" }] }, "textures/items/shears")
-  .button({ rawtext: [{ text: "\n\n\n\nEnchant" }] }, "textures/items/spire_armor_trim_smithing_template")
-  .button({ rawtext: [{ text: "\n\n\n\nSave Item" }] }, "textures/items/ender_eye")
-  .button({ rawtext: [{ text: "\n\n\n\nRepair" }] }, "textures/items/redstone_dust"); */
 
 export function showItemEditorUI(player: Player) {
+  const mainItemEditorUI = new ActionFormData()
+    .title({ translate: "ui.itemeditor.main_menu.title" })
+    .body({ translate: "ui.itemeditor.main_menu.body" })
+    .button({ translate: "ui.itemeditor.main_menu.rename" }, "textures/items/blaze_rod")
+    .button({ translate: "ui.itemeditor.main_menu.setlore" }, "textures/items/map_trial_chambers")
+    .button({ translate: "ui.itemeditor.main_menu.attributes" }, "textures/items/prize_pottery_sherd")
+    .button({ translate: "ui.itemeditor.main_menu.quantity" }, "textures/items/bundle_lime")
+    .button({ translate: "ui.itemeditor.main_menu.repair" }, "textures/items/redstone_dust");
+  /* .button({ rawtext: [{ text: "\n\n\n\nDelete" }] }, "textures/items/shears")
+    .button({ rawtext: [{ text: "\n\n\n\nEnchant" }] }, "textures/items/spire_armor_trim_smithing_template")
+    .button({ rawtext: [{ text: "\n\n\n\nSave Item" }] }, "textures/items/ender_eye")
+  */
+
   mainItemEditorUI.show(player).then((e) => {
     if (e.selection === 0) return renameItemMenu(player);
     if (e.selection === 1) return setLoreMenu(player);
     if (e.selection === 2) return editAttributesMenu(player);
     if (e.selection === 3) return quantityMenu(player);
+    if (e.selection === 4) return repairMenu(player);
   });
 }
 
@@ -269,4 +277,25 @@ export function quantityMenu(player: Player) {
 
     inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
   });
+}
+
+export function repairMenu(player: Player) {
+  const inventory = player.getComponent("inventory") as EntityInventoryComponent;
+  const selectedItem = inventory.container?.getItem(player.selectedSlotIndex) as ItemStack;
+
+  if (!selectedItem.hasComponent(ItemComponentTypes.Durability)) {
+    player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.repair.cant_repair"}]}`);
+    return;
+  }
+
+  const itemWithComponent = selectedItem.getComponent(ItemComponentTypes.Durability) as ItemDurabilityComponent;
+
+  if (itemWithComponent.damage === 0) {
+    player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.repair.already_repaired"}]}`);
+    return;
+  }
+
+  itemWithComponent.damage = Math.min(0, itemWithComponent.maxDurability);
+
+  inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
 }
