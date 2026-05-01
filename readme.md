@@ -21,7 +21,7 @@ ItemEditor uses TypeScript for behavioral package scripts. We do not use addon c
 
 ```sh
 git clone https://github.com/woozystudio/ItemEditor.git
-cd LuckPerms/
+cd ItemEditor/
 ```
 
 The following command must be executed in Windows PowerShell as administrator.
@@ -44,4 +44,4 @@ The contribution rules will be added in the future, for the moment you can make 
 
 ## License
 
-ItemEditor is licensed under the permissive MIT license. Please see [`license`](https://github.com/woozystudio/ItemEditor/blob/master/license) for more info.
+ItemEditor is licensed under the permissive MIT license. Please see [`license`](https://github.com/woozystudio/ItemEditor/blob/main/license) for more info.
