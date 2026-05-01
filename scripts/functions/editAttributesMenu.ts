@@ -1,0 +1,151 @@
+import { EntityInventoryComponent, ItemLockMode, ItemStack, Player } from "@minecraft/server";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+
+export function editAttributesMenu(player: Player) {
+  const attributesMenu = new ActionFormData()
+    .title({ translate: "ui.itemeditor.attributes.title" })
+    .body({ translate: "ui.itemeditor.attributes.body" })
+    .button({ translate: "ui.itemeditor.attributes.canplaceon" }, "textures/items/flow_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.candestroy" }, "textures/items/miner_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.lockininventory" }, "textures/items/prize_pottery_sherd")
+    .button({ translate: "ui.itemeditor.attributes.keepondeath" }, "textures/items/heartbreak_pottery_sherd");
+
+  attributesMenu.show(player).then((e) => {
+    if (e.canceled) return;
+
+    const inventory = player.getComponent("inventory") as EntityInventoryComponent;
+    const selectedItem = inventory.container?.getItem(player.selectedSlotIndex) as ItemStack;
+
+    /* Can Place On */
+    if (e.selection === 0) {
+      const canPlaceOnMenu = new ModalFormData()
+        .title({ translate: "ui.itemeditor.attributes.canplaceon.title" })
+        .textField(
+          { translate: "ui.itemeditor.attributes.canplaceon.addblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .textField(
+          { translate: "ui.itemeditor.attributes.canplaceon.removeblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
+
+      canPlaceOnMenu.show(player).then((e) => {
+        if (e.canceled) return;
+
+        const textFieldResponse = e.formValues as (string | number | boolean)[];
+        let responseAddBlock = textFieldResponse[0] as string;
+        const responseRemoveBlock = textFieldResponse[1] as string;
+
+        const oldBlocks = selectedItem.getCanPlaceOn();
+        let results = [...oldBlocks, responseAddBlock];
+
+        if (responseAddBlock === "") results = [...oldBlocks];
+
+        if (responseRemoveBlock === null) return selectedItem.setCanPlaceOn(results);
+
+        const index = results.indexOf(responseRemoveBlock);
+
+        if (index !== -1) {
+          results.splice(index, 1);
+        }
+
+        selectedItem.setCanPlaceOn(results);
+
+        inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+      });
+    }
+
+    /* Can Destroy */
+    if (e.selection === 1) {
+      const canDestroyMenu = new ModalFormData()
+        .title({ translate: "ui.itemeditor.attributes.candestroy.title" })
+        .textField(
+          { translate: "ui.itemeditor.attributes.candestroy.addblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .textField(
+          { translate: "ui.itemeditor.attributes.candestroy.removeblocktextfield.label" },
+          { translate: "ui.itemeditor.examples.blockid" }
+        )
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
+
+      canDestroyMenu.show(player).then((e) => {
+        if (e.canceled) return;
+
+        const textFieldResponse = e.formValues as (string | number | boolean)[];
+        let responseAddBlock = textFieldResponse[0] as string;
+        const responseRemoveBlock = textFieldResponse[1] as string;
+
+        const oldBlocks = selectedItem.getCanDestroy();
+        let results = [...oldBlocks, responseAddBlock];
+
+        if (responseAddBlock === "") results = [...oldBlocks];
+
+        if (responseRemoveBlock === null) return selectedItem.setCanDestroy(results);
+
+        const index = results.indexOf(responseRemoveBlock);
+
+        if (index !== -1) {
+          results.splice(index, 1);
+        }
+
+        selectedItem.setCanDestroy(results);
+
+        inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+      });
+    }
+
+    /* Lock in Inventory */
+    if (e.selection === 2) {
+      const lockModeMenu = new ModalFormData()
+        .title({ translate: "ui.itemeditor.attributes.lockmode.title" })
+        .dropdown({ translate: "ui.itemeditor.attributes.lockmode.dropdown.label" }, [
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.none" },
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.inventory" },
+          { translate: "ui.itemeditor.attributes.lockmode.dropdown.options.slot" },
+        ])
+        .submitButton({ translate: "ui.itemeditor.global.apply_changes" });
+
+      lockModeMenu.show(player).then((e) => {
+        if (e.canceled) return;
+
+        const dropdownResponse = e.formValues as (string | number | boolean)[];
+        let dropdown = dropdownResponse[0] as number;
+
+        switch (dropdown) {
+          case 0:
+            selectedItem.lockMode = ItemLockMode.none;
+            break;
+
+          case 1:
+            selectedItem.lockMode = ItemLockMode.inventory;
+            break;
+
+          case 2:
+            selectedItem.lockMode = ItemLockMode.slot;
+            break;
+        }
+
+        inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+      });
+    }
+
+    /* Keep On Death */
+    if (e.selection === 3) {
+      switch (selectedItem.keepOnDeath) {
+        case true:
+          selectedItem.keepOnDeath = false;
+          inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+          player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.attributes.keepondeath.disabled"}]}`);
+          break;
+
+        case false:
+          selectedItem.keepOnDeath = true;
+          inventory?.container?.getSlot(player.selectedSlotIndex).setItem(selectedItem);
+          player.runCommand(`tellraw @s {"rawtext":[{"translate":"ui.itemeditor.attributes.keepondeath.enabled"}]}`);
+          break;
+      }
+    }
+  });
+}
