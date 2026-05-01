@@ -21,7 +21,8 @@
     "baseUrl": "behavior_packs/",
     "listFiles": false,
     "noEmitHelpers": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "noUnusedLocals": false
   },
   "include": ["scripts/**/*"],
   "exclude": ["lib", "dist", "node_modules"],
